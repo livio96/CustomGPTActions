@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TelQuest Inventory CSV Feed",
+    "description": "Retrieves the current TelQuest International daily inventory CSV feed",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.telquestintl.com"
+    }
+  ],
+  "paths": {
+    "/site/Daily%20Inventory%20Lists/": {
+      "get": {
+        "summary": "Get TelQuest Daily Inventory CSV",
+        "description": "Fetches the current CSV feed containing TelQuest International's daily inventory listings",
+        "operationId": "getTelQuestInventoryCSV",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the inventory CSV feed",
+            "content": {
+              "text/csv": {
+                "schema": {
+                  "type": "string",
+                  "format": "binary"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "CSV feed not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  }
+}
