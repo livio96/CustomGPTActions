@@ -1,0 +1,79 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TelQuest Inventory JSON Feed",
+    "description": "Retrieves the current TelQuest International daily inventory JSON feed",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://www.telquestintl.com"
+    }
+  ],
+  "paths": {
+    "/site/Daily%20Inventory%20Lists/": {
+      "get": {
+        "summary": "Get TelQuest Daily Inventory JSON",
+        "description": "Fetches the current JSON feed containing TelQuest International's daily inventory listings",
+        "operationId": "getRTI",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the inventory JSON feed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "inventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "partNumber": {
+                            "type": "string",
+                            "description": "Part Number"
+                          },
+                          "price": {
+                            "type": "number",
+                            "description": "Price"
+                          },
+                          "quantity": {
+                            "type": "integer",
+                            "description": "Quantity"
+                          },
+                          "manufacturer": {
+                            "type": "string",
+                            "description": "Manufacturer"
+                          },
+                          "condition": {
+                            "type": "string",
+                            "description": "Condition"
+                          }
+                        }
+                      }
+                    },
+                    "lastUpdated": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Timestamp of last inventory update"
+                    },
+                    "totalItems": {
+                      "type": "integer",
+                      "description": "Total number of inventory items"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON feed not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  }
+}
