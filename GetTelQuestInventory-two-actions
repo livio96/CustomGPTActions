@@ -1,0 +1,173 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "TelQuest Cisco Inventory JSON Feed",
+    "description": "Retrieves the current TelQuest International daily Cisco used and new inventory JSON feeds",
+    "version": "1.0.1"
+  },
+  "servers": [
+    {
+      "url": "https://www.telquestintl.com"
+    }
+  ],
+  "paths": {
+    "/site/Daily%20Inventory%20Lists/": {
+      "get": {
+        "summary": "Get Cisco Used Inventory",
+        "description": "Fetches the JSON array containing TelQuest International's daily Cisco used inventory",
+        "operationId": "getRTIUsed",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the Cisco used inventory JSON feed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "itemid": {
+                        "type": "string",
+                        "description": "Part Number"
+                      },
+                      "quantityavailable": {
+                        "type": "string",
+                        "description": "Available quantity (as an integer)"
+                      },
+                      "custitem_bb_first_choice": {
+                        "type": "string",
+                        "description": "Brokerbin Price"
+                      },
+                      "custitem_set_ebay_price": {
+                        "type": "string",
+                        "description": "eBay price"
+                      },
+                      "custitem_end_user_price": {
+                        "type": "string",
+                        "description": "Business Price"
+                      },
+                      "averagecost": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Average cost (may be null)"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_last_30_days": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 30 days"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_last_90_days": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 90 days"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_180": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 180 days"
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON feed not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/site/Daily%20Inventory%20Lists/": {
+      "get": {
+        "summary": "Get Cisco New Inventory",
+        "description": "Fetches the JSON array containing TelQuest International's daily Cisco new inventory",
+        "operationId": "getRTINew",
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved the Cisco new inventory JSON feed",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "itemid": {
+                        "type": "string",
+                        "description": "Part Number"
+                      },
+                      "quantityavailable": {
+                        "type": "string",
+                        "description": "Available quantity (as an integer)"
+                      },
+                      "custitem_bb_first_choice": {
+                        "type": "string",
+                        "description": "Brokerbin Price"
+                      },
+                      "custitem_set_ebay_price": {
+                        "type": "string",
+                        "description": "eBay price"
+                      },
+                      "custitem_end_user_price": {
+                        "type": "string",
+                        "description": "Business Price"
+                      },
+                      "averagecost": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Average cost (may be null)"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_last_30_days": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 30 days"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_last_90_days": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 90 days"
+                      },
+                      "CUSTRECORD_ITEM_NAME__custrecord_quantity_sold_180": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Quantity sold 180 days"
+                      }
+                    },
+                    "additionalProperties": true
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "JSON feed not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    }
+  }
+}
