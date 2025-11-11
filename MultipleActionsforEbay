@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Kit Webhook API
+  description: API for sending various kit-related data (string, structured, price, and etail info) to n8n webhooks.
+  version: 1.5.0
+servers:
+  - url: https://n8n.srv1095609.hstgr.cloud
+    description: n8n webhook server
+
+paths:
+  /webhook/:
+    post:
+      operationId: updateEbayListing
+      summary: Send single-string kit data to the webhook
+      description: Accepts a single string representing kit details.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitStringPayload'
+      responses:
+        '200':
+          description: Kit data posted successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /webhook/:
+    post:
+      operationId: createBundleKit
+      summary: Send structured kit data to the webhook
+      description: Accepts multiple fields describing a kit.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitStructuredPayload'
+      responses:
+        '200':
+          description: Structured kit data posted successfully
+        '400':
+          description: Bad request
+        '500':
+          description: Internal server error
+
+  /webhook/:
+    post:
+      operationId: createBundleKitWithPrice
+      summary: Send kit details with price to the n8n webhook
+      description: Accepts multiple fields related to a kit, including price, and posts them to the webhook in JSON format.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitStructuredWithPricePayload'
+      responses:
+        '200':
+          description: Successfully posted kit data to the webhook
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /webhook/:
+    post:
+      operationId: UpdateKitPrice
+      summary: Send kit name and price to update kit price
+      description: Accepts a kit name and price to update an existing record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/KitPriceUpdatePayload'
+      responses:
+        '200':
+          description: Price has been updated successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /webhook/:
+    post:
+      operationId: CreateEtail
+      summary: Send kit details and etail ID to the n8n webhook
+      description: Accepts a kit name and etail ID to create a new etail record.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EtailPayload'
+      responses:
+        '200':
+          description: Etail record has been created successfully
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+  /webhook/:
+    post:
+      operationId: EndListing
+      summary: Send kit details to the n8n webhook
+      description: Accepts multiple fields related to a kit and posts them to the n8n webhook in JSON format.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EndListingPayload'
+      responses:
+        '200':
+          description: Listing has ended
+        '400':
+          description: Invalid input
+        '500':
+          description: Server error
+
+components:
+  schemas:
+    KitStringPayload:
+      type: object
+      properties:
+        kitData:
+          type: string
+          description: A string containing kit details
+      required:
+        - kitData
+
+    KitStructuredPayload:
+      type: object
+      properties:
+        kit_name:
+          type: string
+        member_item:
+          type: string
+        manufacturer:
+          type: string
+        quantity:
+          type: number
+        description:
+          type: string
+        shipping_cost_markup:
+          type: number
+      required:
+        - kit_name
+        - member_item
+        - manufacturer
+        - quantity
+        - description
+        - shipping_cost_markup
+
+    KitStructuredWithPricePayload:
+      type: object
+      properties:
+        kit_name:
+          type: string
+          description: The name of the kit
+        member_item:
+          type: string
+          description: The member item included in the kit
+        manufacturer:
+          type: string
+          description: The manufacturer of the kit or item
+        quantity:
+          type: number
+          description: Quantity of the member item in the kit
+        description:
+          type: string
+          description: A short description of the kit or item
+        price:
+          type: number
+          description: Kit price
+      required:
+        - kit_name
+        - member_item
+        - manufacturer
+        - quantity
+        - description
+
+    KitPriceUpdatePayload:
+      type: object
+      properties:
+        kit_name:
+          type: string
+          description: The name of the kit
+        price:
+          type: number
+          description: Kit Price
+      required:
+        - kit_name
+        - price
+
+    EtailPayload:
+      type: object
+      properties:
+        kit_name:
+          type: string
+          description: The name of the kit
+        etailid:
+          type: string
+          description: Etail ID associated with the kit
+      required:
+        - kit_name
+        - etailid
+
+    EndListingPayload:
+      type: object
+      properties:
+        sku:
+          type: string
+          description: SKU of the listing to be ended
+      required:
+        - sku
